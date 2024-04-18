@@ -12,6 +12,7 @@ int main () {
   puts(">> welcome to your system\n");
   printf("username: ");
   fgets(username, MAXBUFSIZE, stdin);
+  username[strcspn(username, "\n")] = 0;
   system("clear"); // Clear console
   printf("Welcome to your system, much needed %s", username);
   

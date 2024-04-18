@@ -14,7 +14,7 @@ int main () {
   fgets(username, MAXBUFSIZE, stdin);
   username[strcspn(username, "\n")] = 0;
   system("clear"); // Clear console
-  printf("Welcome to your system, much needed %s", username);
+  printf("Welcome to your system, much needed %s\n", username);
   
   // Get the current time
   time_t currentTime; // declares a variable to hold the current time.
@@ -30,7 +30,7 @@ int main () {
   
   // user input starts here
   while (1) {
-      printf("[%s]$ ", username);
+      printf("[%s@root]$ ", username);
       char userInput[MAXBUFSIZE + 1];
       fgets(userInput, MAXBUFSIZE, stdin);
       userInput[strcspn(userInput, "\n")] = 0;

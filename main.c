@@ -7,9 +7,10 @@
 #define MAXBUFSIZE 256
 
 int main () {
+  system("clear");
   char username[MAXBUFSIZE + 1];
-  puts("Welcome to your system\n");
-  puts("Type your username\n");
+  puts(">> welcome to your system\n");
+  printf("username: ");
   fgets(username, MAXBUFSIZE, stdin);
   system("clear"); // Clear console
   printf("Welcome to your system, much needed %s", username);
@@ -28,6 +29,7 @@ int main () {
   
   // user input starts here
   while (1) {
+      printf("[%s]$ ", username);
       char userInput[MAXBUFSIZE + 1];
       fgets(userInput, MAXBUFSIZE, stdin);
       userInput[strcspn(userInput, "\n")] = 0;
@@ -36,10 +38,6 @@ int main () {
       write_file(); // Call the write_file function
   }
   };
-
-   
-
-
 
   return 0;
 }

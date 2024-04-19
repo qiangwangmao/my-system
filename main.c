@@ -5,13 +5,20 @@
 #include <ctype.h>
 #include "write.h"
 #include "help.h"
+#include "hostname.h"
 
 #define MAXBUFSIZE 256
 
+extern char hostname;
+
 int main() {
     system("clear"); // clear terminal :^
+
     char username[MAXBUFSIZE + 1]; // USERNAME VARIABLE
-    char hostname[MAXBUFSIZE + 1]; // HOSTNAME VARIABLE
+
+    char loginTxt[MAXBUFSIZE + 1]; // LOGIN.TXT CONTENTS
+    char password[MAXBUFSIZE + 1]; // PASSWORD VARIABLE
+
     int validUsername = 0; // flag to check if a valid user is entered, 1 = valid
     int validHostname = 0; // flag to check if a valid hostname is entered
 
@@ -19,6 +26,7 @@ int main() {
 
     do {
         while (!validUsername) { // keep asking for user until a valid one is entered
+            FILE * file = fopen("login.txt", "w"); // open login.txt in write mode
             printf("username: ");
             fgets(username, MAXBUFSIZE, stdin); // username input field
             username[strcspn(username, "\n")] = 0; // remove new line characters
@@ -38,26 +46,33 @@ int main() {
         }
     } while (!validUsername); // this cannot be right
 
-    do {
-        while (!validHostname) { // keep asking for hostname until a valid one is entered
-            printf("hostname: ");
-            fgets(hostname, MAXBUFSIZE, stdin); // hostname input field
-            hostname[strcspn(hostname, "\n")] = 0; // remove new line characters
+    printf("password: ");
+    FILE * file = fopen("login.txt", "w"); // open login.txt in write mode
+    fgets(password, MAXBUFSIZE, stdin); // user input for password
+    password[strcspn(password, "\n")]; // remove new line
+    fprintf(file, "%s:%s", username, password); // prints login to file
+    fclose(file); // close the file
+
+    // do {
+    //     while (!validHostname) { // keep asking for hostname until a valid one is entered
+    //         printf("hostname: ");
+    //         fgets(hostname, MAXBUFSIZE, stdin); // hostname input field
+    //         hostname[strcspn(hostname, "\n")] = 0; // remove new line characters
 
             // check if hostname has
-            int i;
-            for (i = 0; hostname[i] != '\0'; i++) {
-                if (isspace(hostname[i])) { // if a space is found
-                    printf("Hostname mustn't use spaces.\n");
-                    break; // exit the loop to prompt for hostname again
-                }
-            }
+    //         int i;
+    //         for (i = 0; hostname[i] != '\0'; i++) {
+    //             if (isspace(hostname[i])) { // if a space is found
+    //                 printf("Hostname mustn't use spaces.\n");
+    //                 break; // exit the loop to prompt for hostname again
+    //             }
+    //         }
 
-            if (hostname[i] == '\0') {
-                validHostname = 1;
-            }
-        }
-    } while (!validHostname); // this cannot be right
+    //         if (hostname[i] == '\0') {
+    //             validHostname = 1;
+    //         }
+    //     }
+    // } while (!validHostname); // this cannot be right
 
     // succesful login
     system("clear"); // Clear console
@@ -88,18 +103,27 @@ int main() {
             write_file(); // Call the write_file function
         }
 
-        if (strcmp(userInput, "help") == 0) { // help command
+        else if (strcmp(userInput, "help") == 0) { // help command
             help(); // Call the help function
         }
 
-        if (strcmp(userInput, "shutdown") == 0) { // shutdown command
+        else if (strcmp(userInput, "shutdown") == 0) { // shutdown command
             system("clear");
-            return (1); // shutdown the program // I DONT THINK THIS IS HOW ITS DONE BUT IT WORKS
+            return 0; // shutdown the program
         }
-        if (strcmp(userInput, "logout") == 0) { // logout command
+
+        else if (strcmp(userInput, "logout") == 0) { // logout command
             validUsername = 0;
             validHostname = 0;
             break;
+        }
+
+        else if (strcmp(userInput, "hostname") == 0) {
+            changehost();
+        }
+
+        else {
+            puts("This command doesn't exist. Check 'help' for a list of all available commands.");
         }
     };
 

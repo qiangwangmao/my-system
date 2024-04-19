@@ -18,6 +18,10 @@ int main() {
     char username[MAXBUFSIZE + 1]; // USERNAME VARIABLE
     char password[MAXBUFSIZE + 1]; // PASSWORD VARIABLE
 
+    FILE *hostfile = fopen("hostname.txt", "r"); // open hostname.txt
+    fgets(hostname, MAXBUFSIZE, hostfile); // fetch hostname from text file
+    fclose(hostfile); // close hostname.txt
+
     puts(">> welcome to your system\n");
 
     int validLogin = 0; // 0 = logged out, 1 = log in
@@ -33,11 +37,11 @@ int main() {
         password[strcspn(password, "\n")] = 0; // removes new line from fgets
         char credentials[MAXBUFSIZE + 1];
         FILE *creds = fopen("login.txt", "r"); // open login.txt in read mode
-        fgets(credentials, MAXBUFSIZE, creds);
+        fgets(credentials, MAXBUFSIZE, creds); // gets credentials from login.txt
         fclose(creds); // close file
         char *userInputCreds;
         asprintf(&userInputCreds, "%s:%s", username, password);
-        if (strcmp(credentials, userInputCreds) == 0 ) {
+        if (strcmp(credentials, userInputCreds) == 0 ) { // compares login.txt credentials with user input credentials
             validLogin = 1;
             system("clear"); // Clear console
         } else {

@@ -1,7 +1,10 @@
 {
     "files.associations": {
         "stdio.h": "c",
-        "ctype.h": "c"
+        "ctype.h": "c",
+        "socket.h": "c",
+        "in.h": "c",
+        "string.h": "c"
     },
     "editor.inlayHints.enabled": "off"
 }

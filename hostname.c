@@ -4,9 +4,12 @@
 
 #define MAXBUFSIZE 256
 
-char hostname[MAXBUFSIZE + 1] = "qiang"; // HOSTNAME VARIABLE
+char hostname[MAXBUFSIZE + 1]; // HOSTNAME VARIABLE
 
 int changehost() {
+    FILE *hostfile = fopen("hostname.txt", "r");
+    fgets(hostname, MAXBUFSIZE, hostfile);
+    fclose(hostfile);
 
     int validHostname = 0;
 
@@ -31,6 +34,10 @@ int changehost() {
             printf("Invalid hostname. Please try again.\n");
         }
     }
+
+    FILE *file = fopen("hostname.txt", "w");
+    fprintf(file, "%s", hostname);
+    fclose(file);
 
     return 0; // return 0 for success, or consider returning the hostname or a status code
 }

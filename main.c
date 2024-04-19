@@ -5,11 +5,11 @@
 #include <ctype.h>
 #include "write.h"
 #include "help.h"
-#include "hostname.h"
+#include "hostname.h"¡
 
 #define MAXBUFSIZE 256
 
-extern char hostname;
+extern char hostname[MAXBUFSIZE + 1];
 
 int main() {
     system("clear"); // clear terminal :^

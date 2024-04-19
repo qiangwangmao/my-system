@@ -21,7 +21,7 @@ int main() {
 
     int validUsername = 0; // flag to check if a valid user is entered, 1 = valid
     int validHostname = 0; // flag to check if a valid hostname is entered
-
+    login:
     puts(">> welcome to your system\n");
 
     do {
@@ -113,9 +113,7 @@ int main() {
         }
 
         else if (strcmp(userInput, "logout") == 0) { // logout command
-            validUsername = 0;
-            validHostname = 0;
-            break;
+            goto login;
         }
 
         else if (strcmp(userInput, "hostname") == 0) {

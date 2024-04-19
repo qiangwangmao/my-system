@@ -11,7 +11,9 @@
 int main () {
   system("clear"); // clear terminal :^
   char username[MAXBUFSIZE + 1]; // USERNAME VARIABLE
+  char hostname[MAXBUFSIZE + 1]; // HOSTNAME VARIABLE
   int validUsername = 0; // flag to check if a valid user is entered, 1 = valid
+  int validHostname = 0; // flag to check if a valid hostname is entered
   puts(">> welcome to your system\n");
 
   do {
@@ -33,7 +35,29 @@ int main () {
       validUsername = 1;
       }
     }
-  } while (!validUsername);
+  } while (!validUsername); // this cannot be right
+  
+  do {
+    while (!validHostname) { // keep asking for hostname until a valid one is entered
+        printf("hostname: ");
+        fgets(hostname, MAXBUFSIZE, stdin); // hostname input field
+        hostname[strcspn(hostname, "\n")] = 0; // remove new line characters
+
+        // check if hostname has
+        int i;
+        for (i = 0; hostname[i] != '\0'; i++) {
+            if (isspace(hostname[i])) { // if a space is found
+            printf("Hostname mustn't use spaces.\n");
+            break; // exit the loop to prompt for hostname again
+          }
+        } 
+
+  if (hostname[i] == '\0') {
+      validHostname = 1;
+      }
+    }
+  } while (!validHostname); // this cannot be right
+
   // succesful login
   system("clear"); // Clear console
   printf("Welcome to your system, much needed %s\n", username);
@@ -52,7 +76,7 @@ int main () {
   
   // user input starts here
   while (1) {
-      printf("[%s@root]$ ", username);
+      printf("[%s@%s]$ ", username, hostname);
       char userInput[MAXBUFSIZE + 1];
       fgets(userInput, MAXBUFSIZE, stdin);
       userInput[strcspn(userInput, "\n")] = 0;

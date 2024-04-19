@@ -7,5 +7,6 @@ int help() {
     puts("  write   (Writes data to a file)");
     puts("  hostname (Change your hostname)");
     puts("  logout");
+    puts("  reboot");
     puts("  shutdown");
 }

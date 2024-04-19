@@ -12,17 +12,16 @@
 extern char hostname[MAXBUFSIZE + 1];
 
 int main() {
+    reboot:
+
     system("clear"); // clear terminal :^
-
     char username[MAXBUFSIZE + 1]; // USERNAME VARIABLE
-
-    char loginTxt[MAXBUFSIZE + 1]; // LOGIN.TXT CONTENTS
     char password[MAXBUFSIZE + 1]; // PASSWORD VARIABLE
+    char loginTxt[MAXBUFSIZE + 1]; // LOGIN.TXT CONTENTS
+    puts(">> welcome to your system\n");
     login:
     int validUsername = 0; // flag to check if a valid user is entered, 1 = valid
     int validHostname = 0; // flag to check if a valid hostname is entered
- 
-    puts(">> welcome to your system\n");
 
     do {
         while (!validUsername) { // keep asking for user until a valid one is entered
@@ -52,27 +51,6 @@ int main() {
     password[strcspn(password, "\n")]; // remove new line
     fprintf(file, "%s:%s", username, password); // prints login to file
     fclose(file); // close the file
-
-    // do {
-    //     while (!validHostname) { // keep asking for hostname until a valid one is entered
-    //         printf("hostname: ");
-    //         fgets(hostname, MAXBUFSIZE, stdin); // hostname input field
-    //         hostname[strcspn(hostname, "\n")] = 0; // remove new line characters
-
-            // check if hostname has
-    //         int i;
-    //         for (i = 0; hostname[i] != '\0'; i++) {
-    //             if (isspace(hostname[i])) { // if a space is found
-    //                 printf("Hostname mustn't use spaces.\n");
-    //                 break; // exit the loop to prompt for hostname again
-    //             }
-    //         }
-
-    //         if (hostname[i] == '\0') {
-    //             validHostname = 1;
-    //         }
-    //     }
-    // } while (!validHostname); // this cannot be right
 
     // succesful login
     system("clear"); // Clear console
@@ -114,6 +92,10 @@ int main() {
 
         else if (strcmp(userInput, "logout") == 0) { // logout command
             goto login;
+        }
+
+        else if (strcmp(userInput, "reboot") == 0) { // logout command
+            goto reboot;
         }
 
         else if (strcmp(userInput, "hostname") == 0) {

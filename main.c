@@ -85,6 +85,7 @@ int main() {
         }
 
         else if (strcmp(userInput, "logout") == 0) { // logout command
+            system("clear");
             goto login;
         }
 

@@ -5,7 +5,7 @@
 #include <ctype.h>
 #include "write.h"
 #include "help.h"
-#include "hostname.h"¡
+#include "hostname.h"
 
 #define MAXBUFSIZE 256
 
@@ -120,6 +120,7 @@ int main() {
 
         else if (strcmp(userInput, "hostname") == 0) {
             changehost();
+            system("clear");
         }
 
         else {

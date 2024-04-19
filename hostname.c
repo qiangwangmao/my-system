@@ -11,7 +11,7 @@ int changehost() {
     int validHostname = 0;
 
     while (!validHostname) { // keep asking for hostname until a valid one is entered
-        printf("hostname: ");
+        printf("Your new hostname: ");
         fgets(hostname, MAXBUFSIZE, stdin); // hostname input field
         hostname[strcspn(hostname, "\n")] = 0; // remove new line characters
 
@@ -32,6 +32,5 @@ int changehost() {
         }
     }
 
-    printf("Changes were made succesfully: %s\n", hostname);
     return 0; // return 0 for success, or consider returning the hostname or a status code
 }

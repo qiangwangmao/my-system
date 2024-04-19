@@ -18,10 +18,10 @@ int main() {
 
     char loginTxt[MAXBUFSIZE + 1]; // LOGIN.TXT CONTENTS
     char password[MAXBUFSIZE + 1]; // PASSWORD VARIABLE
-
+    login:
     int validUsername = 0; // flag to check if a valid user is entered, 1 = valid
     int validHostname = 0; // flag to check if a valid hostname is entered
-    login:
+ 
     puts(">> welcome to your system\n");
 
     do {

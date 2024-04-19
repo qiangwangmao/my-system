@@ -11,4 +11,6 @@ int help() {
     puts("  logout");
     puts("  reboot");
     puts("  shutdown");
+
+    return 0;
 }

@@ -14,6 +14,7 @@ int main () {
   char hostname[MAXBUFSIZE + 1]; // HOSTNAME VARIABLE
   int validUsername = 0; // flag to check if a valid user is entered, 1 = valid
   int validHostname = 0; // flag to check if a valid hostname is entered
+
   puts(">> welcome to your system\n");
 
   do {
@@ -83,7 +84,7 @@ int main () {
     
       if (strcmp(userInput, "write") == 0) {   // check if user wrote "write"
       write_file(); // Call the write_file function
-      }
+  }
 
       if (strcmp(userInput, "help") == 0) {   // help command
       help(); // Call the help function
@@ -92,6 +93,11 @@ int main () {
       if (strcmp(userInput, "shutdown") == 0) {   // shutdown command
       system("clear");
       return(1); // shutdown the program // I DONT THINK THIS IS HOW ITS DONE BUT IT WORKS
+  }
+      if (strcmp(userInput, "logout") == 0) {   // logout command
+      validUsername = 0;
+      validHostname = 0;
+      break;
   }
   };
 

@@ -7,9 +7,6 @@
 char hostname[MAXBUFSIZE + 1]; // HOSTNAME VARIABLE
 
 int changehost() {
-    FILE *hostfile = fopen("hostname.txt", "r");
-    fgets(hostname, MAXBUFSIZE, hostfile);
-    fclose(hostfile);
 
     int validHostname = 0;
 

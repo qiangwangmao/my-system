@@ -7,7 +7,7 @@
 #include "help.h"
 #include "hostname.h"
 
-#define MAXBUFSIZE 256
+#define MAXBUFSIZE 512
 
 extern char hostname[MAXBUFSIZE + 1];
 
@@ -17,43 +17,33 @@ int main() {
     system("clear"); // clear terminal :^
     char username[MAXBUFSIZE + 1]; // USERNAME VARIABLE
     char password[MAXBUFSIZE + 1]; // PASSWORD VARIABLE
-    char loginTxt[MAXBUFSIZE + 1]; // LOGIN.TXT CONTENTS
+
     puts(">> welcome to your system\n");
+
+    int validLogin = 0; // 0 = logged out, 1 = log in
     login:
-    int validUsername = 0; // flag to check if a valid user is entered, 1 = valid
-    int validHostname = 0; // flag to check if a valid hostname is entered
+    validLogin = 0;
 
-    do {
-        while (!validUsername) { // keep asking for user until a valid one is entered
-            FILE * file = fopen("login.txt", "w"); // open login.txt in write mode
-            printf("username: ");
-            fgets(username, MAXBUFSIZE, stdin); // username input field
-            username[strcspn(username, "\n")] = 0; // remove new line characters
-
-            // check if username has
-            int i;
-            for (i = 0; username[i] != '\0'; i++) {
-                if (isspace(username[i])) { // if a space is found
-                    printf("Username mustn't use spaces.\n");
-                    break; // exit the loop to prompt for username again
-                }
-            }
-
-            if (username[i] == '\0') {
-                validUsername = 1;
-            }
+    while (!validLogin) {
+        printf("username: ");
+        fgets(username, MAXBUFSIZE, stdin); // user input for username
+        username[strcspn(username, "\n")] = 0; // removes new line from fgets
+        printf("password: ");
+        fgets(password, MAXBUFSIZE, stdin); // user input for password
+        password[strcspn(password, "\n")] = 0; // removes new line from fgets
+        char credentials[MAXBUFSIZE + 1];
+        FILE *creds = fopen("login.txt", "r"); // open login.txt in read mode
+        fgets(credentials, MAXBUFSIZE, creds);
+        fclose(creds); // close file
+        char *userInputCreds;
+        asprintf(&userInputCreds, "%s:%s", username, password);
+        if (strcmp(credentials, userInputCreds) == 0 ) {
+            validLogin = 1;
+            system("clear"); // Clear console
+        } else {
+            printf("Invalid credentials. Please try again.\n");
         }
-    } while (!validUsername); // this cannot be right
-
-    printf("password: ");
-    FILE * file = fopen("login.txt", "w"); // open login.txt in write mode
-    fgets(password, MAXBUFSIZE, stdin); // user input for password
-    password[strcspn(password, "\n")]; // remove new line
-    fprintf(file, "%s:%s", username, password); // prints login to file
-    fclose(file); // close the file
-
-    // succesful login
-    system("clear"); // Clear console
+    }
     printf("Welcome to your system, much needed %s\n", username);
 
     // Get the current time
@@ -107,10 +97,47 @@ int main() {
             system("clear");
         }
 
+        else if (strcmp(userInput, "username") == 0){
+            int validUsername = 0; // flag to check if a valid user is entered, 1 = valid
+        do {
+            while (!validUsername) { // keep asking for user until a valid one is entered
+
+              printf("username: ");
+              fgets(username, MAXBUFSIZE, stdin); // username input field
+              username[strcspn(username, "\n")] = 0; // remove new line characters
+
+              // check if username has
+              int i;
+              for (i = 0; username[i] != '\0'; i++) {
+                if (isspace(username[i])) { // if a space is found
+                  printf("Username mustn't use spaces.\n");
+                  break; // exit the loop to prompt for username again
+                } 
+              }
+
+              if (username[i] == '\0') {
+                validUsername = 1;
+                FILE * creds = fopen("login.txt", "w"); // open login.txt in write mode
+                fprintf(creds, "%s:%s", username, password); // prints login to file
+                fclose(creds);
+              }
+            }
+          } while (!validUsername); // this cannot be right
+        }
+
+        else if (strcmp(userInput, "password") == 0) {
+            printf("password: ");
+            fgets(password, MAXBUFSIZE, stdin); // username input field
+            password[strcspn(password, "\n")] = 0; // remove new line characters          
+            FILE * creds = fopen("login.txt", "w"); // open login.txt in write mode
+            fprintf(creds, "%s:%s", username, password); // prints login to file
+            fclose(creds);
+              }
+
         else {
             puts("This command doesn't exist. Check 'help' for a list of all available commands.");
         }
-    };
+    }
 
     return 0;
 }

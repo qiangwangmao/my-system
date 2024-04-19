@@ -123,6 +123,10 @@ int main() {
             system("clear");
         }
 
+        else if (strcmp(userInput, "clear") == 0){
+            system("clear");
+        }
+
         else {
             puts("This command doesn't exist. Check 'help' for a list of all available commands.");
         }
